@@ -40,6 +40,15 @@ Add this on `ios/Runner/info.plist`:
             midAndroidZoom: widget.midAndroidZoom,
             minAndroidZoom: widget.minAndroidZoom,
         )
+
+#### Load PDF Byte file
+
+        File fileName;  
+        PDF.buffer(
+            buffer,
+            height: 200,
+            width: 100,
+        )
         
 #### Load PDF from assets
 
