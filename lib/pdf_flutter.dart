@@ -1,18 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 class PDF extends StatefulWidget {
   const PDF._({
     this.file,
+    this.buffer,
     this.networkURL,
     this.assetsPath,
     this.width = double.maxFinite,
@@ -43,6 +42,32 @@ class PDF extends StatefulWidget {
   }) {
     return PDF._(
       networkURL: url,
+      width: width,
+      height: height,
+      placeHolder: placeHolder,
+      minAndroidZoom: minAndroidZoom,
+      midAndroidZoom: midAndroidZoom,
+      maxAndroidZoom: maxAndroidZoom,
+    );
+  }
+
+  factory PDF.buffer(
+    Uint8List buffer, {
+    double width = double.maxFinite,
+    double height = double.maxFinite,
+    Widget? placeHolder,
+
+    /// 1.0 by default
+    double? minAndroidZoom,
+
+    /// 1.75 by default
+    double? midAndroidZoom,
+
+    /// 3 by default
+    double? maxAndroidZoom,
+  }) {
+    return PDF._(
+      buffer: buffer,
       width: width,
       height: height,
       placeHolder: placeHolder,
@@ -116,6 +141,7 @@ class PDF extends StatefulWidget {
   final double height;
   final double width;
   final Widget? placeHolder;
+  final Uint8List? buffer;
 
   /// 1.0 by default
   final double? minAndroidZoom;
@@ -161,15 +187,6 @@ class _PDFState extends State<PDF> {
 
   Future<bool> existsFile() async => (await _localFile).exists();
 
-  Future<Uint8List?> fetchPost() async {
-    if (widget.networkURL != null) {
-      var uri = Uri.http(widget.networkURL!, '');
-      return (await http.get(uri)).bodyBytes;
-    } else {
-      debugPrint('Cannot fetch post because networkURL is null.');
-    }
-  }
-
   void loadPdf() async {
     if (widget.networkURL != null) {
       await loadNetworkPDF();
@@ -177,6 +194,8 @@ class _PDFState extends State<PDF> {
       await loadFile();
     } else if (widget.assetsPath != null) {
       await loadAssetPDF();
+    } else if (widget.buffer != null) {
+      await loadBufferPDF();
     }
     setState(() {});
   }
@@ -191,6 +210,11 @@ class _PDFState extends State<PDF> {
     final fetchedFile =
         await DefaultCacheManager().getSingleFile(widget.networkURL!);
     await (writeCounter(fetchedFile.readAsBytesSync()));
+    path = (await _localFile).path;
+  }
+
+  Future<void> loadBufferPDF() async {
+    await (writeCounter(widget.buffer!));
     path = (await _localFile).path;
   }
 
