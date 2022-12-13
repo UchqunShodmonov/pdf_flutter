@@ -78,5 +78,3 @@ Add this on `ios/Runner/info.plist`:
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-## Demo           
-![demo](art/pdf_flutter_updated.gif)
