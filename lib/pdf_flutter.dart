@@ -169,6 +169,8 @@ class _PDFState extends State<PDF> {
     var input;
     if (widget.assetsPath != null) {
       input = widget.assetsPath;
+    } else if (widget.buffer != null) {
+      return 'document';
     } else {
       if (widget.networkURL != null) {
         final splitLength = widget.networkURL!.split('/').length;
@@ -184,8 +186,6 @@ class _PDFState extends State<PDF> {
 
   Future<File> writeCounter(Uint8List stream) async =>
       (await _localFile).writeAsBytes(stream);
-
-  Future<bool> existsFile() async => (await _localFile).exists();
 
   void loadPdf() async {
     if (widget.networkURL != null) {
