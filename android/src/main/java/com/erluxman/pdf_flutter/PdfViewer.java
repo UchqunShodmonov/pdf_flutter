@@ -56,6 +56,8 @@ public class PdfViewer implements PlatformView, MethodCallHandler {
                 .enableSwipe(true) // allows to block changing pages using swipe
                 .swipeHorizontal(false)
                 .enableDoubletap(true)
+                .enableAntialiasing(true) 
+                .pageSnap(false) // snap pages to screen boundaries
                 .defaultPage(0)
                 .load();
     }
