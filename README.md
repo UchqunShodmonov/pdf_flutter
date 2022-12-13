@@ -43,7 +43,7 @@ Add this on `ios/Runner/info.plist`:
 
 #### Load PDF Byte file
 
-        File fileName;  
+        Uint8List buffer;  
         PDF.buffer(
             buffer,
             height: 200,
