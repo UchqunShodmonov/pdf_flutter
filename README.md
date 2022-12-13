@@ -7,7 +7,9 @@ Wrapped around [AndroidPdfViewer](https://github.com/barteksc/AndroidPdfViewer) 
 ### 1. Add `pdf_flutter`on `pubspec.yml` 
 
     dependencies:
-      pdf_flutter: ^version
+      pdf_flutter:
+        git:
+          url: https://github.com/UchqunShodmonov/pdf_flutter.git
 
 ### 2. On iOS enable PDF preview like this:
 
