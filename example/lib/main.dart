@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pdf_flutter/pdf_flutter.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,14 +14,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const PdfPage(),
+      home: PdfPage(),
     );
   }
 }
 
 class PdfPage extends StatelessWidget {
-  const PdfPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
