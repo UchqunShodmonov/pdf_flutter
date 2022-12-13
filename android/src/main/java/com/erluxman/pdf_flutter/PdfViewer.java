@@ -14,6 +14,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.platform.PlatformView;
+import android.graphics.Color;
 
 public class PdfViewer implements PlatformView, MethodCallHandler {
     private PDFView pdfView;
@@ -49,6 +50,7 @@ public class PdfViewer implements PlatformView, MethodCallHandler {
     }
 
     private void loadPdfView() {
+        pdfView.setBackgroundColor(Color.parseColor("#f1f5f9"));
         pdfView.setMinZoom((float) minZoom);
         pdfView.setMidZoom((float) midZoom);
         pdfView.setMaxZoom((float) maxZoom);
@@ -56,9 +58,9 @@ public class PdfViewer implements PlatformView, MethodCallHandler {
                 .enableSwipe(true) // allows to block changing pages using swipe
                 .swipeHorizontal(false)
                 .enableDoubletap(true)
-                .enableAntialiasing(true) 
                 .pageSnap(false) // snap pages to screen boundaries
                 .defaultPage(0)
+                .spacing(16)
                 .load();
     }
 

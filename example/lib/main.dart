@@ -26,6 +26,9 @@ class PdfPage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: PDF.network(
         'https://raw.githubusercontent.com/FlutterInThai/Dart-for-Flutter-Sheet-cheet/master/Dart-for-Flutter-Cheat-Sheet.pdf',
+        placeHolder: Container(
+          color: const Color(0xFFf1f5f9),
+        ),
       ),
     );
   }
