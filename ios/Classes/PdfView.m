@@ -60,7 +60,7 @@
             [_webView loadRequest:request];
         }
     }
-    
+
   return self;
 }
 
