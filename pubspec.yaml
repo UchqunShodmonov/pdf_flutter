@@ -5,15 +5,15 @@ version: 0.0.1
 homepage: https://github.com/UchqunShodmonov/pdf_flutter
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.16.2 <4.0.0"
   flutter: ">=2.10.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_cache_manager: ^3.3.0
-  http: ^0.13.4
-  path_provider: ^2.0.9
+  flutter_cache_manager: ^3.3.1 
+  http: ^1.1.0
+  path_provider: ^2.1.1
 
 dev_dependencies:
   flutter_test:
