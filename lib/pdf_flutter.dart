@@ -14,6 +14,7 @@ class PDF extends StatefulWidget {
     this.buffer,
     this.networkURL,
     this.assetsPath,
+    this.backgroundColor = '',
     this.width = double.maxFinite,
     this.height = double.maxFinite,
     this.placeHolder,
@@ -29,6 +30,7 @@ class PDF extends StatefulWidget {
     String url, {
     double width = double.maxFinite,
     double height = double.maxFinite,
+    String backgroundColor = '',
     Widget? placeHolder,
 
     /// 1.0 by default
@@ -44,6 +46,7 @@ class PDF extends StatefulWidget {
       networkURL: url,
       width: width,
       height: height,
+      backgroundColor: backgroundColor,
       placeHolder: placeHolder,
       minAndroidZoom: minAndroidZoom,
       midAndroidZoom: midAndroidZoom,
@@ -55,6 +58,7 @@ class PDF extends StatefulWidget {
     Uint8List buffer, {
     double width = double.maxFinite,
     double height = double.maxFinite,
+    String backgroundColor = '',
     Widget? placeHolder,
 
     /// 1.0 by default
@@ -70,6 +74,7 @@ class PDF extends StatefulWidget {
       buffer: buffer,
       width: width,
       height: height,
+      backgroundColor: backgroundColor,
       placeHolder: placeHolder,
       minAndroidZoom: minAndroidZoom,
       midAndroidZoom: midAndroidZoom,
@@ -85,6 +90,7 @@ class PDF extends StatefulWidget {
     double width = double.maxFinite,
     double height = double.maxFinite,
     Widget? placeHolder,
+    String backgroundColor = '',
 
     /// 1.0 by default
     double? minAndroidZoom,
@@ -99,6 +105,7 @@ class PDF extends StatefulWidget {
       file: file,
       width: width,
       height: height,
+      backgroundColor: backgroundColor,
       placeHolder: placeHolder,
       minAndroidZoom: minAndroidZoom,
       midAndroidZoom: midAndroidZoom,
@@ -114,6 +121,7 @@ class PDF extends StatefulWidget {
     double width = double.maxFinite,
     double height = double.maxFinite,
     Widget? placeHolder,
+    String backgroundColor = '',
 
     /// 1.0 by default
     double? minAndroidZoom,
@@ -128,6 +136,7 @@ class PDF extends StatefulWidget {
       assetsPath: assetPath,
       width: width,
       height: height,
+      backgroundColor: backgroundColor,
       placeHolder: placeHolder,
       minAndroidZoom: minAndroidZoom,
       midAndroidZoom: midAndroidZoom,
@@ -142,6 +151,7 @@ class PDF extends StatefulWidget {
   final double width;
   final Widget? placeHolder;
   final Uint8List? buffer;
+  final String backgroundColor;
 
   /// 1.0 by default
   final double? minAndroidZoom;
@@ -241,6 +251,7 @@ class _PDFState extends State<PDF> {
                 minAndroidZoom: widget.minAndroidZoom,
                 midAndroidZoom: widget.midAndroidZoom,
                 maxAndroidZoom: widget.maxAndroidZoom,
+                backgroundColor: widget.backgroundColor,
                 onPdfViewerCreated: () {
                   debugPrint('PDF view created');
                 },
@@ -254,12 +265,7 @@ class _PDFState extends State<PDF> {
                     child: Container(
                       height: min(widget.height, widget.width),
                       width: min(widget.height, widget.width),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CircularProgressIndicator(),
-                        ],
-                      ),
+                      child: const CircularProgressIndicator(),
                     ),
                   ),
             ),
@@ -273,6 +279,7 @@ typedef void PdfViewerCreatedCallback();
 class PdfViewer extends StatefulWidget {
   const PdfViewer({
     required this.filePath,
+    this.backgroundColor = '',
     this.minAndroidZoom,
     this.midAndroidZoom,
     this.maxAndroidZoom,
@@ -281,6 +288,7 @@ class PdfViewer extends StatefulWidget {
   }) : super(key: key);
 
   final String filePath;
+  final String backgroundColor;
   final double? minAndroidZoom;
   final double? midAndroidZoom;
   final double? maxAndroidZoom;
@@ -314,6 +322,7 @@ class _PdfViewerState extends State<PdfViewer> {
           'minZoom': androidZoomList.first,
           'midZoom': androidZoomList[1],
           'maxZoom': androidZoomList.last,
+          'backgroundColor': widget.backgroundColor,
         },
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: _onPlatformViewCreated,
@@ -323,6 +332,7 @@ class _PdfViewerState extends State<PdfViewer> {
         viewType: 'pdf_flutter_plugin',
         creationParams: <String, dynamic>{
           'filePath': widget.filePath,
+          'backgroundColor': widget.backgroundColor,
         },
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: _onPlatformViewCreated,

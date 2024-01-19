@@ -34,6 +34,7 @@
   UIViewController *_viewController;
   FlutterMethodChannel* _channel;
   NSString* filePath;
+  NSString* backgroundColor;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -48,6 +49,7 @@
     _viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
     
     filePath = args[@"filePath"];
+    backgroundColor = args[@"backgroundColor"];
     
     if (_webView == nil){
         WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
