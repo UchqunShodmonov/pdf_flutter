@@ -19,6 +19,7 @@ import android.graphics.Color;
 public class PdfViewer implements PlatformView, MethodCallHandler {
     private PDFView pdfView;
     private String filePath;
+    private String backgroundColor;
     private double minZoom;
     private double midZoom;
     private double maxZoom;
@@ -37,6 +38,7 @@ public class PdfViewer implements PlatformView, MethodCallHandler {
         minZoom = (double) args.get("minZoom");
         midZoom = (double) args.get("midZoom");
         maxZoom = (double) args.get("maxZoom");
+        backgroundColor = (String) args.get("backgroundColor");
         loadPdfView();
     }
 
@@ -50,7 +52,12 @@ public class PdfViewer implements PlatformView, MethodCallHandler {
     }
 
     private void loadPdfView() {
-        pdfView.setBackgroundColor(Color.parseColor("#f1f5f9"));
+        if (backgroundColor != null && !backgroundColor.isEmpty()) {
+            pdfView.setBackgroundColor(Color.parseColor(backgroundColor));
+        } else {
+            pdfView.setBackgroundColor(Color.parseColor("#f1f5f9"));
+
+        }
         pdfView.setMinZoom((float) minZoom);
         pdfView.setMidZoom((float) midZoom);
         pdfView.setMaxZoom((float) maxZoom);
@@ -70,5 +77,6 @@ public class PdfViewer implements PlatformView, MethodCallHandler {
     }
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+    }
 }
